@@ -3,4 +3,5 @@ scratch*
 omega/omega*
 oncodrive3d/oncodrive3d*
 */test/*
-hdp2/HDP_sigExtraction
+hdp_stefano/HDP_sigExtraction
+hdp_wrapper/test/

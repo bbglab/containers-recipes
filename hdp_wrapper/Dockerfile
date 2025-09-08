@@ -19,6 +19,7 @@ RUN apt-get update -y && \
     liblzma-dev \
     libncurses-dev \
     libreadline-dev \
+    vim \
     git && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -30,13 +31,6 @@ RUN Rscript -e 'install.packages(pkgs = "pkgdown");library("pkgdown")'
 RUN Rscript -e 'install.packages(pkgs = "devtools");library("devtools")'
 RUN Rscript -e 'devtools::install_github("nicolaroberts/hdp", build_vignettes = FALSE);library(hdp)'
 
-
-RUN git clone https://github.com/McGranahanLab/HDP_sigExtraction.git /app/HDP_sigExtraction
-RUN sed -i '/Sys.getenv("SLURM_ARRAY_TASK_ID")/c\
-if (length(cmdArgs) >= 10 && cmdArgs[10] != "") {\n  iter <- as.numeric(cmdArgs[10])\n} else {\n  iter <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))\n}' /app/HDP_sigExtraction/R/run_HDP_chainSampling.R
-
-
-RUN rm -r /app/HDP_sigExtraction/HDP_wrapper.sh /app/HDP_sigExtraction/data /app/HDP_sigExtraction/examples
 
 # Install dependencies for HDP_sigExtraction
 RUN Rscript -e 'install.packages(pkgs = "BiocManager");library("BiocManager")'
@@ -56,19 +50,13 @@ RUN Rscript -e 'install.packages(pkgs = "dplyr");library("dplyr")'
 RUN Rscript -e 'install.packages(pkgs = "cowplot");library("cowplot")'
 RUN Rscript -e 'install.packages(pkgs = "gridExtra");library("gridExtra")'
 
+ARG CACHEBUST=6
+RUN git clone https://github.com/bbglab/HDP_sigExtraction.git /app/HDP_sigExtraction && cd /app/HDP_sigExtraction && git checkout fix-bug
+
+RUN sed -i '/Sys.getenv("SLURM_ARRAY_TASK_ID")/c\
+if (length(cmdArgs) >= 10 && cmdArgs[10] != "") {\n  iter <- as.numeric(cmdArgs[10])\n} else {\n  iter <- as.numeric(Sys.getenv("SLURM_ARRAY_TASK_ID"))\n}' /app/HDP_sigExtraction/R/run_HDP_chainSampling.R
+
+RUN rm -r /app/HDP_sigExtraction/HDP_wrapper.sh /app/HDP_sigExtraction/data /app/HDP_sigExtraction/examples
 
 ENV PATH="/app/HDP_sigExtraction/R:$PATH"
 
-
-# # Install additional dependencies
-# RUN apt-get update -y && \
-#     apt-get install -y --no-install-recommends \
-#     libbz2-dev \
-#     liblzma-dev \
-#     libncurses-dev \
-#      \
-#     libreadline-dev \
-#     && \
-#     apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# RUN Rscript -e 'BiocManager::install("GenomicFeatures");library("GenomicFeatures")'
