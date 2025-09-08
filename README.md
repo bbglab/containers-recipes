@@ -1,5 +1,8 @@
 # containers
 
+> [!WARNING]
+> This repository is archived. Please refer to https://github.com/bbglab/containers-recipes for updated version of bbglab containers.
+
 To build a container:
 ```
 docker build -t <container_tag> <what to build>
