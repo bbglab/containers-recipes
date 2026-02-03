@@ -2,7 +2,7 @@ FROM mambaorg/micromamba:2.0.5-debian12-slim
 
 # Metadata
 LABEL maintainer="bbglab <bbglab@irbbarcelona.org>"
-LABEL version="0.0.2-alpha"
+LABEL version="0.1.0-alpha"
 LABEL description="A Docker image with conda environment for deepcsa bin scripts. It contains the bgdata datasets references for hg38 and mm39."
 LABEL source="https://github.com/bbglab/containers/deepcsa_core"
 
