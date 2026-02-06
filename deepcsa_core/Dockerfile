@@ -2,13 +2,20 @@ FROM mambaorg/micromamba:2.0.5-debian12-slim
 
 # Metadata
 LABEL maintainer="bbglab <bbglab@irbbarcelona.org>"
-LABEL version="0.1.0-alpha"
+LABEL version="0.1.0"
 LABEL description="A Docker image with conda environment for deepcsa bin scripts. It contains the bgdata datasets references for hg38 and mm39."
 LABEL source="https://github.com/bbglab/containers/deepcsa_core"
 
 COPY --chown=$MAMBA_USER:$MAMBA_USER deepcsa.txt /tmp/conda.txt
 COPY --chown=$MAMBA_USER:$MAMBA_USER requirements.txt /tmp/requirements.txt
 
+USER root
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && \
+    apt-get -y install gcc mono-mcs && \
+    rm -rf /var/lib/apt/lists/*
+
+USER $MAMBA_USER
 # Configure matplotlib
 ENV MPLCONFIGDIR=/tmp/matplotlib_config
 RUN mkdir -p "$MPLCONFIGDIR" && chmod -R 777 "$MPLCONFIGDIR"
