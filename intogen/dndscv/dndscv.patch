@@ -1,0 +1,29 @@
+diff --git a/R/dndscv.R b/R/dndscv.R
+index e3ff1f9..7f2b26f 100755
+--- a/R/dndscv.R
++++ b/R/dndscv.R
+@@ -512,6 +512,10 @@ dndscv = function(mutations, gene_list = NULL, refdb = "hg19", sm = "192r_3w", k
+ 
+         message("[5] Running dNdScv...")
+ 
++        if (sum(genemuts$n_syn) < 5) {
++            stop('Less then 5 synonymous mutations')
++        }
++
+         # Covariates
+         if (is.null(cv)) {
+             nbrdf = genemuts[,c("n_syn","exp_syn")]
+@@ -530,10 +534,13 @@ dndscv = function(mutations, gene_list = NULL, refdb = "hg19", sm = "192r_3w", k
+                 model = MASS::glm.nb(n_syn ~ offset(log(exp_syn)) - 1 , data = nbrdf)
+             } else {
+                 model = tryCatch({
++                    message('--normal')
+                     MASS::glm.nb(n_syn ~ offset(log(exp_syn)) + . , data = nbrdf) # We try running the model with covariates
+                 }, warning = function(w){
++                    message('--warning')
+                     MASS::glm.nb(n_syn ~ offset(log(exp_syn)) - 1 , data = nbrdf) # If there are warnings or errors we run the model without covariates
+                 }, error = function(e){
++                    message('--error')
+                     MASS::glm.nb(n_syn ~ offset(log(exp_syn)) - 1 , data = nbrdf) # If there are warnings or errors we run the model without covariates
+                 })
+             }
