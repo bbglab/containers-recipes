@@ -13,8 +13,8 @@ ADD --chown=user:group http://genetics.bwh.harvard.edu/cbase/CBaSE_v1.1.zip /tmp
 RUN --mount=type=bind,target=/files \
     unzip /tmp/cbase.zip -d /tmp/cbase && \
     cd /tmp/cbase && \
-    git config --global user.name "tmp_user" && \
-    git config --global user.email "tmp_user@email.com" && \
+    git config --global user.name "BBGLab Build System" && \
+    git config --global user.email "bbglab-build@irbbarcelona.org" && \
     git init && \
     git add . && \
     git commit -m "init_commit" && \

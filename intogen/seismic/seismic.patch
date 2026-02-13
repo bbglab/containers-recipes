@@ -41,7 +41,7 @@ index 4ccbd11..06f47cb 100755
 +  config$mutations_path <- args[2]
 +  config$out_base_name <- str_split_i(config$mutations_path, "\\.", 1)
 +  config$cancer_type <- args[3]
-+  config$seq_type <- arg[4]
++  config$seq_type <- args[4]
    
 -  print_logo()
 +  config$reference_genome <- args[5]

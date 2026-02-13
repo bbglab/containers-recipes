@@ -9,6 +9,12 @@ methods:
   - seismic:
     - version: 0.1.1
 
+  - oncodriveclustl:
+    - version: 1.2.0
+
+  - oncodrivefml:
+    - version: 2.5.0
+
   - dndscv:
     - version: 69007c2
 
@@ -17,6 +23,3 @@ methods:
 
   - smregions:
     - version: 0.1.0
-  
-  - mutpanning:
-    - version: 2.0.0
