@@ -19,9 +19,9 @@ A curated collection of Docker containers for cancer genomics, mutation analysis
 This repository contains Docker container recipes for a comprehensive suite of bioinformatics tools, primarily focused on:
 
 - **Cancer Driver Detection**: Statistical methods to identify genes under positive selection
+- **Core Tools for somatic mutations analysis**: Basic tools for the processing of somatic mutations and performing basic analysis
 - **Mutational Signature Analysis**: Tools for extracting and analyzing mutational signatures
-- **Mutation Rate Estimation**: Statistical frameworks for mutation rate modeling
-- **Genomic Analysis**: Various utilities for processing and analyzing genomic data
+- **Mutation and Genomic Analysis**: Various utilities for processing and analyzing genomic data
 
 All containers are designed to provide:
 
@@ -49,30 +49,29 @@ All containers are designed to provide:
 - **oncodrive3d/** - 3D protein structure-based driver detection
 - **omega/** - dnds-like driver detection method
 
+### Core Tools for somatic mutations analysis
+
+- **deepcsa_core/** - DeepCSA pipeline core environment with genome references
+- **bgreference/** - BBGLab genome reference in-house tool
+- **bgtools/** - BBGLab utility tools
+
 ### Mutational Signatures
 
 - **sigprofiler_official/** - Official SigProfiler suite
 - **sigprofiler_matrix/** - SigProfiler matrix generation
 - **sigprofilerassignment/** - Mutational signature assignment
-- **mSigHDP/** - Hierarchical Dirichlet Process for signature extraction
-- **musical/** - MuSiCal signature analysis
-- **siglasso/** - LASSO-based signature extraction
-- **hdp_stefano/** - HDP signature analysis (Stefano's implementation)
+- **hdp_sig_extraction/** - Hierarchical Dirichlet Process signature extraction
 
-### Mutation Analysis
+### Mutation and Genomic Analysis
 
 - **expected_mutrate/** - Expected mutation rate calculation
 - **mutsperpos/** - Position-specific mutation analysis
-- **filtermuts/** - Mutation filtering utilities
 - **mutated_genomes_from_vaf/** - Genome reconstruction from VAF
-
-### Supporting Tools
-
-- **deepcsa_core/** - DeepCSA pipeline core environment with genome references
-- **bgreference/** - BBGLab genome reference in-house tool
-- **bgtools/** - BBGLab utility tools
-- **biomart_query/** - BioMart database query interface
 - **o3d_stefano/** - O3D tools (Stefano's version)
+
+### Additional containers
+
+All containers not listed above are likely not maintained nor properly built and should not be used.
 
 ## Quick Start
 
