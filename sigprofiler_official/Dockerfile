@@ -1,28 +1,32 @@
-# Use an official Python runtime as a parent image
-FROM python:3.10-slim
+# Start with a base Ubuntu image and install Python
+FROM ubuntu:22.04
+
+# Avoid prompts from apt
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Install Python, git, and other dependencies, and apply updates
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y python3-pip python3-dev git procps && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Argument to specify the commit, defaults to the 'main' branch
+ARG COMMIT_SHA=d805dd3416572355e455323cd709220f92e8af4e
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-ENV SIGPROFILERMATRIXGENERATOR_VOLUME=/usr/src/app
+# Install the package directly from the specific commit on GitHub
+RUN pip3 install 'git+https://github.com/SigProfilerSuite/SigProfilerAssignment.git@'${COMMIT_SHA}
 
-RUN apt-get update -y && \
-    apt-get upgrade -y && \
-    apt-get install -y procps
-
-# Install SigProfilerMatrixGenerator from PyPI
-RUN pip install SigProfilerMatrixGenerator==1.3.5
-
-# Create a non-root user named 'spm_user'
+# Create a non-root user
 RUN useradd -m -s /bin/bash spm_user
 
-# Change the ownership of the /usr/src/app directory and its contents to the new non-root user
+# Change the ownership of the working directory
 RUN chown -R spm_user:spm_user /usr/src/app
-
-# Switch to the non-root user for subsequent commands and when running the container
-USER spm_user
 
 # Install the most recent version of the reference genomes
 RUN SigProfilerMatrixGenerator install GRCh38
-RUN SigProfilerMatrixGenerator install GRCh37
 RUN SigProfilerMatrixGenerator install mm39
+
+# Switch to the non-root user for security
+USER spm_user
