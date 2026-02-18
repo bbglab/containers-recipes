@@ -1,3 +1,5 @@
+# Create .gitignore for docker recipes repository
+
 bgtools/bgtools_devcache.sif
 scratch*
 omega/omega*
@@ -5,3 +7,5 @@ oncodrive3d/oncodrive3d*
 */test/*
 hdp_stefano/HDP_sigExtraction
 hdp_wrapper/test/
+hdp2/HDP_sigExtraction
+.vscode
