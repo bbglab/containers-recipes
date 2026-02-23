@@ -1,0 +1,25 @@
+intogen:
+  - version: '3.0.0'
+
+methods:
+
+  - mutpanning:
+    - version: 2.0.0
+
+  - seismic:
+    - version: 0.1.1
+
+  - oncodriveclustl:
+    - version: 1.2.0
+
+  - oncodrivefml:
+    - version: 2.5.0
+
+  - dndscv:
+    - version: 69007c2
+
+  - oncodrive3d:
+    - version: 1.0.5
+
+  - smregions:
+    - version: 0.1.0
