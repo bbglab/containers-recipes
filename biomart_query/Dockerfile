@@ -6,6 +6,7 @@ RUN micromamba install -y -n base -f /tmp/conda.yml && \
     micromamba install -y -n base \
         conda-forge::procps-ng \
         bioconda::bioconductor-genomicranges \
+        bioconda::bioconductor-biomart \
         conda-forge::r-dplyr \
         conda-forge::r-devtools \
         conda-forge::r-optparse && \
