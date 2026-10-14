@@ -17,3 +17,4 @@ polars==1.37.1
 pandera==0.29.0
 pyranges==0.1.0
 pyarrow==23.0.0
+scikit-learn==1.9.1
